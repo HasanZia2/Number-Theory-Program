@@ -157,14 +157,9 @@ def RepeatedContinuedFraction(constant, repeated):
         integer_part = p_index_minus_1 - q_index_minus_2
         discriminant = integer_part**2 + 4*p_index_minus_2*q_index_minus_1
         
-        if continued_fraction[1] > 0:
-            continued_fraction_value_decimal = (1/denominator)*(integer_part + math.sqrt(discriminant))
-            continued_fraction_value_exact = "(1/" + str(denominator) + ")(" + str(integer_part) + " + sqrt(" + str(discriminant) + "))"
-        else:
-            if continued_fraction[1] > 0:
-                continued_fraction_value_decimal = (1/denominator)*(integer_part - math.sqrt(discriminant))
-                continued_fraction_value_exact = "(1/" + str(denominator) + ")(" + str(integer_part) + " - sqrt(" + str(discriminant) + "))"
-        
+        continued_fraction_value_decimal = (1/denominator)*(integer_part + math.sqrt(discriminant))
+        continued_fraction_value_exact = "(1/" + str(denominator) + ")(" + str(integer_part) + " + sqrt(" + str(discriminant) + "))"
+               
         return [continued_fraction_value_decimal, continued_fraction_value_exact, p_index_minus_1, p_index_minus_2, q_index_minus_1, q_index_minus_2, denominator, integer_part, discriminant]
     
     if constant == []:
@@ -238,7 +233,7 @@ def ContinuedFractionCalculator():
     
     elif selection == 4:
         print(" ")
-        print("You have selected the explicit computation of a periodic continued fraction. A periodic continued fraction takes the form [a_0; a_1, ..., a_m, a_m+1, ..., a_m+n, ..., a_m+1, ..., a_m+n, ...]. The non-repeating part should be entered as \"[a_0; a_1, ..., a_m]\", and the repeating part should be entered as \"[a_m+1; a_m+2, ..., a_m+n]\". ")
+        print("You have selected the explicit computation of a periodic continued fraction. A periodic continued fraction takes the form [a_0; a_1, ..., a_m, a_m+1, ..., a_m+n, ..., a_m+1, ..., a_m+n, ...], where a_0 is an integer, and a_i is a positive integer for all i ≥ 1. The non-repeating part should be entered as \"[a_0; a_1, ..., a_m]\", and the repeating part should be entered as \"[a_m+1; a_m+2, ..., a_m+n]\". ")
         print(" ")
         constant = input("Enter the non-repeating part of the periodic continued fraction. If there is no non-repeating part, simply press enter without typing anything. ")
         repeated = input("Enter the repeating part of the periodic continued fraction. (If only one integer a is repeated, enter \"[a; a]\".) ")
