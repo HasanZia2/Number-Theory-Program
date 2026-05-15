@@ -109,8 +109,10 @@ def HenselsLemma():
     polynomial_eval = Polynomial_Evaluation(polynomial, a)
     derivative_eval = Polynomial_Evaluation(Derivative(polynomial), a)
     
-    if polynomial_eval%(p**k) != 0:
+    while polynomial_eval%(p**k) != 0:
         a = int(input("Your input for a is not a valid solution. Please try again. "))
+        polynomial_eval = Polynomial_Evaluation(polynomial, a)
+        derivative_eval = Polynomial_Evaluation(Derivative(polynomial), a)
     
     print(" ")
     if derivative_eval%p != 0:
