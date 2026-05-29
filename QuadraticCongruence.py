@@ -86,8 +86,8 @@ def OddPrime(prime):
     else:
         for integer in range(2, prime):
             if prime%integer == 0:
-                    odd_prime = False
-                    break
+                odd_prime = False
+                break
     return odd_prime
 
 def QuadraticResidue(prime):
