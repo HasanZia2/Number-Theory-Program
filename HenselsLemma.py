@@ -14,8 +14,8 @@ def OddPrime(prime):
     else:
         for integer in range(2, prime):
             if prime/integer == int(prime/integer):
-                    odd_prime = False
-                    break
+                odd_prime = False
+                break
     return odd_prime
 
 def Derivative(polynomial):
