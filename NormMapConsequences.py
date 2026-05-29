@@ -18,7 +18,7 @@ def NormMapConsequences():
     m = int(input("Enter the value of m. "))
     while m == 0:
         m = int(input("Your input for m was not non-zero. Please try again. "))
-    n = int(input("Enter the value of m. "))
+    n = int(input("Enter the value of n. "))
     while n == 0:
         n = int(input("Your input for n was not non-zero. Please try again. "))
     x_1 = int(input("Enter the value of x in the solution (x, y) to the equation x^2 - " + str(d) + "y^2 = " + str(m) + ". "))
