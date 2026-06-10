@@ -141,11 +141,12 @@ def InfiniteContinuedFraction(irrational, max_count, square_root):
                 period = len(continued_fraction_period) - 1
                 period_found = True
     
+    continued_fraction_list = copy.deepcopy(continued_fraction)
     continued_fraction = str(continued_fraction).replace(",", ";", 1)
     continued_fraction = continued_fraction.replace("]", ", ...]")
     
     if square_root:
-        return [continued_fraction, str(period)]
+        return [continued_fraction, str(period), continued_fraction_list]
     else:
         return continued_fraction
 
