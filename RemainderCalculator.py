@@ -56,7 +56,7 @@ def RemainderCalculator():
         remainder = FermatsLittleTheorem(prime, base, exponent)
         print("The remainder on dividing " + str(base) + "^" + str(exponent) + " by " + str(prime) + " is " + str(remainder) + ". ")
     else:
-        factorial = int(input("Enter the number (a natural number) whose factorial is being taken. "))
+        factorial = int(input("Enter the number (a natural number less than the prime chosen) whose factorial is being taken. "))
         while factorial <= 0:
             factorial = int(input("The number you entered is either negative or zero. Please try again. "))
         WilsonsTheorem(prime, factorial)

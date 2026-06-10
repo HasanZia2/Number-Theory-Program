@@ -6,6 +6,7 @@ Created on Sun Jan  5 18:11:53 2025
 """
 
 import math
+import copy
 
 def EuclideanAlgorithm(initial_number1, initial_number2):
     # This function reworks the Euclidean Algorithm program. It uses the same
@@ -101,13 +102,15 @@ def pqAlgorithm(continued_fraction):
     
     return str(pAlgorithm(continued_fraction, len(continued_fraction) - 1)) + "/" + str(qAlgorithm(continued_fraction, len(continued_fraction) - 1))
 
-def InfiniteContinuedFraction(irrational, max_count):
+def InfiniteContinuedFraction(irrational, max_count, square_root):
     # This function finds the infinite canonical continued-fraction representation
     # of an irrational number. The amount of integers displayed in the
-    # representation is decided by the user.
+    # representation is decided by the user. This function also finds the period
+    # of the continued-fraction representation of the irrational number.
     
     continued_fraction = []
     current_count = 0
+    period_found = False
 
     def ICFAlgorithm(irrational, count):
         # This function recursively determines the value of one integer
@@ -121,13 +124,30 @@ def InfiniteContinuedFraction(irrational, max_count):
         return [irrational, integer]
 
     while current_count <= max_count:
-        continued_fraction.append(ICFAlgorithm(irrational, current_count)[1])
+        current_integer = ICFAlgorithm(irrational, current_count)[1]
+        continued_fraction.append(current_integer)
         current_count += 1
+        if current_integer == 2*continued_fraction[0] and square_root and not period_found:
+            period = len(continued_fraction) - 1
+            period_found = True
+    
+    if square_root and not period_found:
+        continued_fraction_period = copy.deepcopy(continued_fraction)
+        while not period_found:
+            current_integer = ICFAlgorithm(irrational, current_count)[1]
+            continued_fraction_period.append(ICFAlgorithm(irrational, current_count)[1])
+            current_count += 1
+            if current_integer == 2*continued_fraction_period[0]:
+                period = len(continued_fraction_period) - 1
+                period_found = True
     
     continued_fraction = str(continued_fraction).replace(",", ";", 1)
     continued_fraction = continued_fraction.replace("]", ", ...]")
     
-    return continued_fraction
+    if square_root:
+        return [continued_fraction, str(period)]
+    else:
+        return continued_fraction
 
 def RepeatedContinuedFraction(constant, repeated):
     # This function finds the exact quadratic irrational form of a 
@@ -226,16 +246,20 @@ def ContinuedFractionCalculator():
         print(" ")
         print("You have selected the calculation of the infinite continued-fraction representation of an irrational number. Note that this continued fraction will be infinite, so you must select the number of integers of the continued fraction you want displayed. ")
         print(" ")
-        irrational = eval(input("Enter your irrational number. When entering this number, call it using the Python math library. "))
+        irrational_str = input("Enter your irrational number. When entering this number, call it using the Python math library. ")
+        irrational = eval(irrational_str)
         max_count = int(input("Enter the desired amount of displayed integers in the infinite continued fraction. ")) - 1
         print(" ")
-        print("The infinite continued-fraction representation of the irrational " + str(irrational) + " is " + InfiniteContinuedFraction(irrational, max_count) + ". ")
+        if irrational_str[0:9] == "math.sqrt":
+            print("The infinite continued-fraction representation of the irrational " + str(irrational) + " is " + InfiniteContinuedFraction(irrational, max_count, True)[0] + ", and the period is " + InfiniteContinuedFraction(irrational, max_count, True)[1] + ". ")
+        else:
+            print("The infinite continued-fraction representation of the irrational " + str(irrational) + " is " + InfiniteContinuedFraction(irrational, max_count, False) + ". ")
     
     elif selection == 4:
         print(" ")
         print("You have selected the explicit computation of a periodic continued fraction. A periodic continued fraction takes the form [a_0; a_1, ..., a_m, a_m+1, ..., a_m+n, ..., a_m+1, ..., a_m+n, ...], where a_0 is an integer, and a_i is a positive integer for all i ≥ 1. The non-repeating part should be entered as \"[a_0; a_1, ..., a_m]\", and the repeating part should be entered as \"[a_m+1; a_m+2, ..., a_m+n]\". ")
         print(" ")
-        constant = input("Enter the non-repeating part of the periodic continued fraction. If there is no non-repeating part, simply press enter without typing anything. ")
+        constant = input("Enter the non-repeating part of the periodic continued fraction. If there is no non-repeating part, simply press enter without typing anything. If the non-repeating part is just the first digit, enter it alongside with the repeated part listed once. (For example, for sqrt(6), enter \"[2; 2, 4]\".) ")
         repeated = input("Enter the repeating part of the periodic continued fraction. (If only one integer a is repeated, enter \"[a; a]\".) ")
         print(" ")
         print("The quadratic irrational form of the provided periodic continued fraction is " + RepeatedContinuedFraction(constant, repeated)[1] + ", which is approximately equal to " + RepeatedContinuedFraction(constant, repeated)[0] + ". ")
