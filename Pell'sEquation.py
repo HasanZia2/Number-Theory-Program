@@ -103,6 +103,7 @@ def PellsEquation():
     print(" ")
     period = int(InfiniteContinuedFraction(math.sqrt(d), 1, True)[1])
     solutions = []
+    valid_solutions = True
     if sign == "p":
         number_of_solutions = int(input("Enter the number of (x, y)-pair solutions desired. "))
         while number_of_solutions <= 0:
@@ -111,27 +112,55 @@ def PellsEquation():
         if d%2 == 0:
             for r in range(1, number_of_solutions + 1):
                 final_index = period*number_of_solutions - 1
+                if final_index <= 1:
+                    final_index = 2
                 continued_fraction = InfiniteContinuedFraction(math.sqrt(d), final_index, True)[2]
                 solutions.append((pAlgorithm(continued_fraction, period*r - 1), qAlgorithm(continued_fraction, period*r - 1)))
         else:
             for r in range(2, 2*number_of_solutions + 2, 2):
-                final_index = period*number_of_solutions - 1
+                final_index = period*(2*number_of_solutions) - 1
+                if final_index <= 1:
+                    final_index = 2
                 continued_fraction = InfiniteContinuedFraction(math.sqrt(d), final_index, True)[2]
                 solutions.append((pAlgorithm(continued_fraction, period*r - 1), qAlgorithm(continued_fraction, period*r - 1)))
-        print(solutions)
     else:
         if d%2 == 0:
             print("The diophantine equation x^2 - " + str(d) + "y^2 = -1 has no solutions. ")
+            valid_solutions = False
         else:
             number_of_solutions = int(input("Enter the number of (x, y)-pair solutions desired. "))
             while number_of_solutions <= 0:
                 print(" ")
                 number_of_solutions = int(input("Your number of solutions is invalid (less than or equal to 0). Please try again. "))
             for r in range(1, 2*number_of_solutions + 1, 2):
-                final_index = period*number_of_solutions - 1
+                final_index = period*(2*number_of_solutions - 1) - 1
+                if final_index <= 1:
+                    final_index = 2
                 continued_fraction = InfiniteContinuedFraction(math.sqrt(d), final_index, True)[2]
                 solutions.append((pAlgorithm(continued_fraction, period*r - 1), qAlgorithm(continued_fraction, period*r - 1)))
-            print(solutions)
+
+    if valid_solutions:
+        print(" ")
+        if number_of_solutions == 1:
+            if sign == "p":
+                print("The first solution to the diophantine equation x^2 - " + str(d) + "y^2 = 1 is " + str(solutions[0]) + ". ")
+            else:
+                print("The first solution to the diophantine equation x^2 - " + str(d) + "y^2 = -1 is " + str(solutions[0]) + ". ")
+        elif number_of_solutions == 2:
+            if sign == "p":
+                print("The first solution to the diophantine equation x^2 - " + str(d) + "y^2 = 1 is " + str(solutions[0]) + " and " + str(solutions[1]) + ". ")
+            else:
+                print("The first solution to the diophantine equation x^2 - " + str(d) + "y^2 = -1 is " + str(solutions[0]) + " and " + str(solutions[1]) + ". ")
+        else:
+            solutions_str = ""
+            for i in range(len(solutions) - 1):
+                solutions_str += str(solutions[i]) + ", "
+            solutions_str += "and "
+            solutions_str += str(solutions[len(solutions) - 1]) + ". "
+            if sign == "p":
+                print("The first " + str(number_of_solutions) + " solutions to the diophantine equation x^2 - " + str(d) + "y^2 = 1 are " + solutions_str)
+            else:
+                print("The first " + str(number_of_solutions) + " solutions to the diophantine equation x^2 - " + str(d) + "y^2 = -1 are " + solutions_str)
 
         
 def main():
