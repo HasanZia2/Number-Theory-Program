@@ -86,17 +86,14 @@ def PellsEquation():
     print(" ")
     d = int(input("Enter the value of d. "))
     while d < 2 or math.sqrt(d) == int(math.sqrt(d)):
-        print(" ")
         if d < 2:
             print("Your value of d is less than 2. ")
         else:
             print("Your value of d is a square integer. ")
-        print(" ")
         d = int(input("Please enter a new value for d. "))
     print(" ")
     sign = input("Do you want to solve x^2 - " + str(d) + "y^2 = 1 or x^2 - " + str(d) + "y^2 = -1? Enter \"p\" for the former, or \"n\" for the latter. ").lower()
     while sign != "p" and sign != "n":
-        print(" ")
         sign = input("Your input was not valid. Enter either \"p\" or \"n\". ")
     print(" ")
     period = int(InfiniteContinuedFraction(math.sqrt(d), 1, True)[1])
@@ -105,7 +102,6 @@ def PellsEquation():
     if sign == "p":
         number_of_solutions = int(input("Enter the number of (x, y)-pair solutions desired. "))
         while number_of_solutions <= 0:
-            print(" ")
             number_of_solutions = int(input("Your number of solutions is invalid (less than or equal to 0). Please try again. "))
         if d%2 == 0:
             for r in range(1, number_of_solutions + 1):
@@ -128,7 +124,6 @@ def PellsEquation():
         else:
             number_of_solutions = int(input("Enter the number of (x, y)-pair solutions desired. "))
             while number_of_solutions <= 0:
-                print(" ")
                 number_of_solutions = int(input("Your number of solutions is invalid (less than or equal to 0). Please try again. "))
             for r in range(1, 2*number_of_solutions + 1, 2):
                 final_index = period*(2*number_of_solutions - 1) - 1
